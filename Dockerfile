@@ -1,20 +1,40 @@
-# 使用 Node.js 18 作为基础镜像
-FROM node:18-alpine
+# 阶段1: 构建应用
+FROM node:18-alpine AS builder
 
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json 和 package-lock.json
-COPY package*.json ./
+# 安装 pnpm
+RUN npm install -g pnpm
 
-# 安装依赖
-RUN npm install
+# 复制依赖管理文件
+COPY package.json pnpm-lock.yaml ./
+
+# 安装所有依赖
+RUN pnpm install
 
 # 复制项目文件
 COPY . .
 
 # 构建项目
-RUN npm run build
+RUN pnpm run build
+
+# 阶段2: 运行环境
+FROM node:18-alpine
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装 pnpm
+RUN npm install -g pnpm
+
+# 复制生产环境所需的依赖管理文件
+COPY package.json pnpm-lock.yaml ./
+# 只安装生产环境依赖
+RUN pnpm install
+
+# 从构建阶段复制打包好的文件
+COPY --from=builder /app/dist/ ./dist/
 
 # 暴露端口
 EXPOSE 4321
@@ -24,4 +44,4 @@ ENV HOST=0.0.0.0
 ENV PORT=4321
 
 # 启动命令
-CMD ["npm", "run", "preview"] 
+CMD ["pnpm", "run", "preview", "--host", "0.0.0.0"] 
