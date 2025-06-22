@@ -20,8 +20,14 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
+# IDE setting folder
 .idea/
 
 # Obsidian config
 .obsidian/
+
+# temp pic
+/*.svg
+!/public/
+!/public/*.svg
+package-lock.json
