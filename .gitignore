@@ -30,4 +30,3 @@ pnpm-debug.log*
 /*.svg
 !/public/
 !/public/*.svg
-package-lock.json
