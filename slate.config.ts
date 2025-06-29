@@ -9,7 +9,7 @@ export default defineConfig({
   avatar: '/avatar.min.svg',
   title: 'Welcome to Feazur.com',
   description: 'Simple share, simple thought.',
-  lastModified: true,
+  lastModified: false,
   readTime: true,
   footer: {
     copyright: '© 2025 Zoket Power by Slate blog',
