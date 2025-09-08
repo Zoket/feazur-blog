@@ -19,5 +19,10 @@ export default defineConfig({
       icon: 'github',
       link: 'https://github.com/Zoket'
     },
-]
+  ],
+  algolia: {
+    appId: 'QPH4K6FPIS',
+    apiKey: 'e0e8826f2f23d70f13303703627c4259',
+    indexName: 'blog search'
+  }
 });
